@@ -1,5 +1,9 @@
 import {initializeBlock} from '@airtable/blocks/ui';
 import React from 'react';
-import UpdateRecordsApp from './UpdateRecordsApp';
 
-initializeBlock(() => <UpdateRecordsApp />);
+function HelloWorldApp() {
+    // YOUR CODE GOES HERE
+    return <div>Hello world 🚀</div>;
+}
+
+initializeBlock(() => <HelloWorldApp />);
