@@ -2,6 +2,7 @@
     "dependencies": {
         "@airtable/blocks": "1.10.1",
         "express": "^4.17.2",
+        "near-api-js": "^0.44.2",
         "react": "^16.13.0",
         "react-dom": "^16.13.0"
     },
