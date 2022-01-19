@@ -1,8 +1,10 @@
 const nearAPI = require("near-api-js");
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 const { providers } = nearAPI;
+app.use(cors());
 
 // network config
 const provider = new providers.JsonRpcProvider(
