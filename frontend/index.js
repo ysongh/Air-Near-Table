@@ -1,11 +1,29 @@
 import { initializeBlock, useBase, useRecords } from '@airtable/blocks/ui';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function HelloWorldApp() {
     // YOUR CODE GOES HERE
+    useEffect(() => {
+        getData();
+    }, [])
+
     const base = useBase();
     const table = base.getTableByName('Explorer');
     const records = useRecords(table.selectRecords());
+
+    async function getData(){
+        const response = await fetch("http://localhost:4000/validators");
+        const data = await response.json();
+        console.log(data.data);
+
+
+        data.data.current_validators.forEach((validator, index) => {
+            updateRecord(records[index], {
+                'Account ID': validator.account_id,
+                'Stake': validator.stake,
+            });
+        });
+    }
 
     function updateRecord(record, recordFields) {
         if (table.hasPermissionToUpdateRecord(record, recordFields)) {
@@ -16,17 +34,7 @@ function HelloWorldApp() {
         // servers (e.g. other users may not be able to see them yet).
     }
 
-    updateRecord(records[0], {
-        'Name': '1',
-        'Notes': 'Test',
-    });
-
-    updateRecord(records[1], {
-        'Name': '2',
-        'Notes': 'Test2',
-    });
-
-    return <div>Hello world 🚀</div>;
+    return <div>Current Validators</div>;
 }
 
 initializeBlock(() => <HelloWorldApp />);
