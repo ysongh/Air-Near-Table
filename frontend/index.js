@@ -21,7 +21,7 @@ function HelloWorldApp() {
             if(i < records.length){
                 updateRecord(records[i], {
                     'Account ID': validators[i].account_id,
-                    'Stake': validators[i].stake,
+                    'Stake': validators[i].stake
                 });
             }
             else{
@@ -43,12 +43,7 @@ function HelloWorldApp() {
     }
 
     function createRecord(recordFields) {
-        if (table.hasPermissionToCreateRecord(record, recordFields)) {
-            table.createRecordsAsync([recordFields]);
-        }
-        // The updated values will now show in your app (eg in
-        // `table.selectRecords()` result) but are still being saved to Airtable
-        // servers (e.g. other users may not be able to see them yet).
+        table.createRecordsAsync(recordFields);
     }
 
     return <div>
