@@ -12,22 +12,22 @@ function HelloWorldApp() {
     const records = useRecords(table.selectRecords());
 
     async function getData(){
-        const response = await fetch("http://localhost:4000/validators");
+        const response = await fetch("http://localhost:4000/current-validators");
         const data = await response.json();
-        console.log(data.data);
-        const validators =  data.data.current_validators;
+        const validators = data.data;
+        console.log(validators);
 
         for(let i = 0; i < validators.length; i++){
             if(i < records.length){
                 updateRecord(records[i], {
                     'Account ID': validators[i].account_id,
-                    'Stake': validators[i].stake
+                    'Stake': validators[i].stake.split(".")[0] + " N"
                 });
             }
             else{
                 createRecord([
                     {fields: {'Account ID': validators[i].account_id}},
-                    {fields: {'Stake': validators[i].stake}}
+                    {fields: {'Stake': validators[i].stake.split(".")[0] + " N"}}
                 ]);
             }
         }

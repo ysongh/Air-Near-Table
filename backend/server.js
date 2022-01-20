@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const { providers } = nearAPI;
+const { providers, utils } = nearAPI;
 app.use(cors());
 
 // network config
@@ -13,10 +13,13 @@ const provider = new providers.JsonRpcProvider(
   
 app.get('/', (req, res) => res.send('Server Work'));
 
-app.get('/validators', async (req, res) =>  {
+app.get('/current-validators', async (req, res) =>  {
   const result = await provider.validators(null);
+  result.current_validators.forEach(validator => {
+    validator.stake = utils.format.formatNearAmount(validator.stake);
+  });
   return res.status(200).json({
-    data: result,
+    data: result.current_validators,
   });
 });
 
