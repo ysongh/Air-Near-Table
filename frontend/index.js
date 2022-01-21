@@ -21,13 +21,23 @@ function HelloWorldApp() {
             if(i < records.length){
                 updateRecord(records[i], {
                     'Account ID': validators[i].account_id,
-                    'Stake': validators[i].stake.split(".")[0] + " N"
+                    'Stake': validators[i].stake.split(".")[0] + " N",
+                    'Is Slashed': validators[i].is_slashed.toString(),
+                    'Expected Blocks': validators[i].num_expected_blocks,
+                    'Expected Chunks': validators[i].num_expected_chunks,
+                    'Produced Blocks': validators[i].num_produced_blocks,
+                    'Produced Chunks': validators[i].num_produced_chunks
                 });
             }
             else{
                 createRecord([
                     {fields: {'Account ID': validators[i].account_id}},
-                    {fields: {'Stake': validators[i].stake.split(".")[0] + " N"}}
+                    {fields: {'Stake': validators[i].stake.split(".")[0] + " N"}},
+                    {fields: {'Is Slashed': validators[i].is_slashed}},
+                    {fields: {'Expected Blocks': validators[i].num_expected_blocks}},
+                    {fields: {'Expected Chunks': validators[i].num_expected_chunks}},
+                    {fields: {'Produced Blocks': validators[i].num_produced_blocks}},
+                    {fields: {'Produced Chunks': validators[i].num_produced_chunks}}
                 ]);
             }
         }
