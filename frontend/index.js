@@ -1,7 +1,7 @@
-import { initializeBlock, useBase, useRecords } from '@airtable/blocks/ui';
+import { initializeBlock, useBase, useRecords, Box, Button } from '@airtable/blocks/ui';
 import React, { useEffect, useState } from 'react';
 
-function HelloWorldApp() {
+function AirNearTable() {
     // YOUR CODE GOES HERE
     const [validators, setValidators] = useState([]);
 
@@ -48,11 +48,14 @@ function HelloWorldApp() {
         // servers (e.g. other users may not be able to see them yet).
     }
 
-    return <div>
-        Current Validators
-        {records.length}
-        <button onClick={addData}>Show</button>
-    </div>;
+    return (
+        <Box padding={2}>
+            <h1 style={{ fontSize: '1.4rem'}}>Current Validators: {records.length} </h1>
+            <Button onClick={addData} variant="primary">
+                Show
+            </Button>
+        </Box>
+    );
 }
 
-initializeBlock(() => <HelloWorldApp />);
+initializeBlock(() => <AirNearTable />);
