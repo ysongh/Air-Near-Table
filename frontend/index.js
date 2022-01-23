@@ -27,11 +27,11 @@ function AirNearTable() {
         console.log(validators);
         setValidators(validators);
 
-        // for(let i = 0; i < validators.length; i++){
-        //     if(i >= records.length){
-        //         await table.createRecordAsync();
-        //     }
-        // }
+        if(records.length < validators.length){
+            for(let i = records.length; i < validators.length; i++){
+                await table.createRecordAsync();
+            }
+        }        
     }
 
     async function createTable() {
