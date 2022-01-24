@@ -1,10 +1,11 @@
-import { FieldType } from '@airtable/blocks/models';
-import { initializeBlock, useBase, useRecords, Box, Button } from '@airtable/blocks/ui';
+import { initializeBlock, useBase, useRecords } from '@airtable/blocks/ui';
+import { Box, Button, Loader } from '@airtable/blocks/ui';
 import React, { useEffect, useState } from 'react';
 
-function AirNearTable() {
+function AirNearTable({cursor}) {
     // YOUR CODE GOES HERE
     const [validators, setValidators] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const base = useBase();
     let table = base.getTableByNameIfExists('Explorer1');
@@ -21,17 +22,25 @@ function AirNearTable() {
     }, [])
 
     async function getData(){
-        const response = await fetch("http://localhost:4000/current-validators");
-        const data = await response.json();
-        const validators = data.data;
-        console.log(validators);
-        setValidators(validators);
+        try{
+            setLoading(true);
+            const response = await fetch("http://localhost:4000/current-validators");
+            const data = await response.json();
+            const validators = data.data;
+            console.log(validators);
+            setValidators(validators);
 
-        if(records.length < validators.length){
-            for(let i = records.length; i < validators.length; i++){
-                await table.createRecordAsync();
+            if(records.length < validators.length){
+                for(let i = records.length; i < validators.length; i++){
+                    await table.createRecordAsync();
+                }
             }
-        }        
+            setLoading(false);
+        } catch(error) {
+            console.error(error);
+            setLoading(false);
+        }
+        
     }
 
     async function createTable() {
@@ -73,6 +82,7 @@ function AirNearTable() {
             <Button onClick={addData} variant="primary">
                 Show
             </Button>
+            {loading && <Loader scale={1} />}
         </Box>
     );
 }
