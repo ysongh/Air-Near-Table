@@ -1,4 +1,4 @@
-import { initializeBlock, useBase, useRecords, useLoadable, useWatchable } from '@airtable/blocks/ui';
+import { initializeBlock, useBase, useRecords, useLoadable, useWatchable, useRecordById } from '@airtable/blocks/ui';
 import { Box, Button, Loader } from '@airtable/blocks/ui';
 import {cursor} from '@airtable/blocks';
 import React, { useEffect, useState } from 'react';
@@ -38,6 +38,13 @@ function AirNearTable() {
         }
         console.log(cursor);
     });
+
+    const selectedRecord = useRecordById(table, selectedRecordId ? selectedRecordId : '');
+    let cellValue = "";
+    if(selectedRecordId){
+        cellValue = selectedRecord.getCellValueAsString("Account ID");
+        console.log(cellValue);
+    }
 
     useEffect(() => {
         getData();
@@ -105,8 +112,7 @@ function AirNearTable() {
                 Show
             </Button>
             {loading && <Loader scale={1} />}
-            <p>{selectedRecordId}</p>
-            <p>{selectedFieldId}</p>
+            <p>{cellValue}</p>
         </Box>
     );
 }
