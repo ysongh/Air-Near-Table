@@ -1,5 +1,5 @@
 import { initializeBlock, useBase, useRecords, useLoadable, useWatchable, useRecordById } from '@airtable/blocks/ui';
-import { Box, Button, Loader } from '@airtable/blocks/ui';
+import { Box, ChoiceToken, Button, Loader } from '@airtable/blocks/ui';
 import {cursor} from '@airtable/blocks';
 import React, { useEffect, useState } from 'react';
 
@@ -101,12 +101,26 @@ function AirNearTable() {
         const data = validators.filter(v => v.account_id === cellValue);
         console.log(data, "data")
         if(data.length) return <div>
-            <p>{data[0].account_id}</p>
-            <p>{data[0].stake}</p>
-            <p>{data[0].num_expected_blocks}</p>
-            <p>{data[0].num_expected_chunks}</p>
-            <p>{data[0].num_produced_blocks}</p>
-            <p>{data[0].num_produced_chunks}</p>
+            <ChoiceToken choice={{"color":"blue", "name": "Account ID"}} style={{ marginTop: "1rem"}} />
+            <p style={{ marginTop: 0}}>{data[0].account_id}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Stake"}} />
+            <p style={{ marginTop: 0}}>{data[0].stake} N</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Is Slashed"}} />
+            <p style={{ marginTop: 0}}>{data[0].is_slashed ? "Yes" : "No"}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Expected Blocks"}} />
+            <p style={{ marginTop: 0}}>{data[0].num_expected_blocks}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Expected Chunks"}} />
+            <p style={{ marginTop: 0}}>{data[0].num_expected_chunks}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Produced Blocks"}} />
+            <p style={{ marginTop: 0}}>{data[0].num_produced_blocks}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Produced Chunks"}} />
+            <p style={{ marginTop: 0}}>{data[0].num_produced_chunks}</p>
         </div>
     }
     
