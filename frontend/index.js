@@ -8,6 +8,7 @@ function AirNearTable() {
     const [validators, setValidators] = useState([]);
     const [selectedRecordId, setSelectedRecordId] = useState(null);
     const [selectedFieldId, setSelectedFieldId] = useState(null);
+    const [isShow, setIsShow] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const base = useBase();
@@ -81,6 +82,7 @@ function AirNearTable() {
     }
 
     async function addData(){
+        setIsShow(true);
         for(let i = 0; i < validators.length; i++){
             updateRecord(records[i], {
                 'Account ID': validators[i].account_id,
@@ -127,9 +129,9 @@ function AirNearTable() {
     return (
         <Box padding={2}>
             <h1 style={{ fontSize: '1.4rem'}}>Current Validators: {validators.length} </h1>
-            <Button onClick={addData} variant="primary">
+            {!isShow && <Button onClick={addData} variant="primary">
                 Show
-            </Button>
+            </Button>}
             {loading && <Loader scale={1} />}
             {getSelectedValidator()}
         </Box>
