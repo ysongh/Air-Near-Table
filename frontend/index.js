@@ -109,9 +109,6 @@ function AirNearTable() {
             <ChoiceToken choice={{"color":"blue", "name": "Stake"}} />
             <p style={{ marginTop: 0}}>{data[0].stake} N</p>
 
-            <ChoiceToken choice={{"color":"blue", "name": "Is Slashed"}} />
-            <p style={{ marginTop: 0}}>{data[0].is_slashed ? "Yes" : "No"}</p>
-
             <ChoiceToken choice={{"color":"blue", "name": "Expected Blocks"}} />
             <p style={{ marginTop: 0}}>{data[0].num_expected_blocks}</p>
 
@@ -123,16 +120,24 @@ function AirNearTable() {
 
             <ChoiceToken choice={{"color":"blue", "name": "Produced Chunks"}} />
             <p style={{ marginTop: 0}}>{data[0].num_produced_chunks}</p>
+
+            <ChoiceToken choice={{"color":"blue", "name": "Is Slashed"}} />
+            <p style={{ marginTop: 0}}>{data[0].is_slashed ? "Yes" : "No"}</p>
         </div>
     }
     
     return (
-        <Box padding={2}>
-            <h1 style={{ fontSize: '1.4rem'}}>Current Validators: {validators.length} </h1>
-            {!isShow && <Button onClick={addData} variant="primary">
-                Show
-            </Button>}
-            {loading && <Loader scale={1} />}
+        <Box padding={3}>
+            <Box display="flex" justifyContent="space-between"  alignItems="center">
+                <h1 style={{ fontSize: '1.4rem', marginTop: '0', marginBottom: '0'}}>Current Validators: {validators.length} </h1>
+                {!isShow && <Button onClick={addData} variant="primary">
+                    Show
+                </Button>}
+            </Box>
+            <p style={{ marginBottom: '0'}}>Select a record to see more detail of a Validator</p>
+            <center>
+                {loading && <Loader scale={1} />}
+            </center>
             {getSelectedValidator()}
         </Box>
     );
