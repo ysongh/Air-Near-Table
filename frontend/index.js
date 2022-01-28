@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 function AirNearTable() {
     // YOUR CODE GOES HERE
     const [validators, setValidators] = useState([]);
+    const [totalStake, setTotalStake] = useState(0);
     const [selectedRecordId, setSelectedRecordId] = useState(null);
     const [selectedFieldId, setSelectedFieldId] = useState(null);
     const [isShow, setIsShow] = useState(false);
@@ -57,8 +58,9 @@ function AirNearTable() {
             const response = await fetch("http://localhost:4000/current-validators");
             const data = await response.json();
             const validators = data.data;
-            console.log(validators);
+            console.log(data);
             setValidators(validators);
+            setTotalStake(data.total);
 
             if(records.length < validators.length){
                 for(let i = records.length; i < validators.length; i++){
@@ -129,11 +131,19 @@ function AirNearTable() {
     return (
         <Box padding={3}>
             <Box display="flex" justifyContent="space-between"  alignItems="center">
-                <h1 style={{ fontSize: '1.4rem', marginTop: '0', marginBottom: '0'}}>Current Validators: {validators.length} </h1>
+                <h1 style={{ fontSize: '1.4rem', marginTop: '0', marginBottom: '0'}}>
+                    Current Validators
+                </h1>
                 {!isShow && <Button onClick={addData} variant="primary">
                     Show
                 </Button>}
             </Box>
+            <p style={{ fontWeight: 600, marginTop: '0', marginBottom: '0'}}>
+                Validators: {validators.length}
+            </p>
+            <p style={{ fontWeight: 600, marginTop: '0', marginBottom: '0'}}>
+                Total Stake: {totalStake / 10 ** 18} Nears
+            </p>
             <p style={{ marginBottom: '0'}}>Select a record to see more detail of a Validator</p>
             <center>
                 {loading && <Loader scale={1} />}

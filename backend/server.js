@@ -15,11 +15,16 @@ app.get('/', (req, res) => res.send('Server Work'));
 
 app.get('/current-validators', async (req, res) =>  {
   const result = await provider.validators(null);
+  let total = 0;
+
   result.current_validators.forEach(validator => {
+    total += +validator.stake;
     validator.stake = utils.format.formatNearAmount(validator.stake);
   });
+
   return res.status(200).json({
     data: result.current_validators,
+    total: total
   });
 });
 
