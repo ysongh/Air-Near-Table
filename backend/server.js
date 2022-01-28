@@ -24,7 +24,8 @@ app.get('/current-validators', async (req, res) =>  {
 
   return res.status(200).json({
     data: result.current_validators,
-    total: total
+    total: total,
+    all: result
   });
 });
 

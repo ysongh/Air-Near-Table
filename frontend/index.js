@@ -17,7 +17,7 @@ function AirNearTable() {
 
     if(!table){
         createTable();
-        table = base.getTableByName('Explorer1');
+        table = base.getTableByNameIfExists('Explorer1');
     }
 
     const records = useRecords(table.selectRecords());
@@ -79,7 +79,12 @@ function AirNearTable() {
         await base.createTableAsync("Explorer1", [
             {name: "Account ID", type: "singleLineText"},
             {name: "Stake", type: "singleLineText"},
-            {name: "Is Slashed", type: "singleLineText"},
+            {name: 'Is Slashed', type: FieldType.SINGLE_SELECT, options: {
+                choices: [
+                    {name: 'Yes'},
+                    {name: 'No'},
+                ],
+            }},
         ]);
     }
 
@@ -89,7 +94,7 @@ function AirNearTable() {
             updateRecord(records[i], {
                 'Account ID': validators[i].account_id,
                 'Stake': validators[i].stake.split(".")[0] + " N",
-                'Is Slashed': validators[i].is_slashed.toString()
+                'Is Slashed': {name: validators[i].is_slashed ? "Yes" : "No"}
             });
         }
     }
@@ -135,7 +140,7 @@ function AirNearTable() {
                     Current Validators
                 </h1>
                 {!isShow && <Button onClick={addData} variant="primary">
-                    Show
+                    Update
                 </Button>}
             </Box>
             <p style={{ fontWeight: 600, marginTop: '0', marginBottom: '0'}}>
