@@ -1,5 +1,6 @@
 import { initializeBlock, useBase, useRecords, useLoadable, useWatchable, useRecordById } from '@airtable/blocks/ui';
 import { Box, ChoiceToken, Button, Loader } from '@airtable/blocks/ui';
+import {FieldType} from '@airtable/blocks/models';
 import {cursor} from '@airtable/blocks';
 import React, { useEffect, useState } from 'react';
 
@@ -14,32 +15,37 @@ function AirNearTable() {
 
     const base = useBase();
     let table = base.getTableByNameIfExists('Explorer1');
+    let records;
 
     if(!table){
         createTable();
         table = base.getTableByNameIfExists('Explorer1');
     }
 
-    const records = useRecords(table.selectRecords());
-
+    if(table){
+        records = useRecords(table.selectRecords());
+    }
+    
     useLoadable(cursor);
 
-    useWatchable(cursor, ['selectedRecordIds', 'selectedFieldIds'], () => {
-        // If the update was triggered by a record being de-selected,
-        // the current selectedRecordId will be retained.  This is
-        // what enables the caching described above.
-        if (cursor.selectedRecordIds.length > 0) {
-            // There might be multiple selected records. We'll use the first
-            // one.
-            setSelectedRecordId(cursor.selectedRecordIds[0]);
-        }
-        if (cursor.selectedFieldIds.length > 0) {
-            // There might be multiple selected fields. We'll use the first
-            // one.
-            setSelectedFieldId(cursor.selectedFieldIds[0]);
-        }
-        console.log(cursor);
-    });
+    if(!table){
+        useWatchable(cursor, ['selectedRecordIds', 'selectedFieldIds'], () => {
+            // If the update was triggered by a record being de-selected,
+            // the current selectedRecordId will be retained.  This is
+            // what enables the caching described above.
+            if (cursor.selectedRecordIds.length > 0) {
+                // There might be multiple selected records. We'll use the first
+                // one.
+                setSelectedRecordId(cursor.selectedRecordIds[0]);
+            }
+            if (cursor.selectedFieldIds.length > 0) {
+                // There might be multiple selected fields. We'll use the first
+                // one.
+                setSelectedFieldId(cursor.selectedFieldIds[0]);
+            }
+            console.log(cursor);
+        });
+    }
 
     const selectedRecord = useRecordById(table, selectedRecordId ? selectedRecordId : '');
     let cellValue = "";
