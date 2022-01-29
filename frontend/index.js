@@ -28,7 +28,7 @@ function AirNearTable() {
     
     useLoadable(cursor);
 
-    if(!table){
+    if(table){
         useWatchable(cursor, ['selectedRecordIds', 'selectedFieldIds'], () => {
             // If the update was triggered by a record being de-selected,
             // the current selectedRecordId will be retained.  This is
