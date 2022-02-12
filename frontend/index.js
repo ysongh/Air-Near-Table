@@ -1,5 +1,5 @@
 import { initializeBlock, useBase, useRecords, useLoadable, useWatchable, useRecordById } from '@airtable/blocks/ui';
-import { Box, ChoiceToken, Button, Link, Loader } from '@airtable/blocks/ui';
+import { Box, ChoiceToken, Button, Text, Link, Loader } from '@airtable/blocks/ui';
 import {FieldType} from '@airtable/blocks/models';
 import {cursor} from '@airtable/blocks';
 import React, { useEffect, useState } from 'react';
@@ -163,7 +163,9 @@ function AirNearTable() {
             <p style={{ fontWeight: 600, marginTop: '0', marginBottom: '0'}}>
                 Total Stake: {totalStake / 10 ** 18} Nears
             </p>
-            <p style={{ marginBottom: '0'}}>Select a record to see more detail of a Validator</p>
+            <Text style={{ marginBottom: '0', marginTop: '.7rem'}} textColor="light">
+                Select a record to see more detail of a Validator
+            </Text>
             <center>
                 {loading && <Loader scale={1} />}
             </center>
