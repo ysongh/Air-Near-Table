@@ -1,5 +1,5 @@
 import { initializeBlock, useBase, useRecords, useLoadable, useWatchable, useRecordById } from '@airtable/blocks/ui';
-import { Box, ChoiceToken, Button, Loader } from '@airtable/blocks/ui';
+import { Box, ChoiceToken, Button, Link, Loader } from '@airtable/blocks/ui';
 import {FieldType} from '@airtable/blocks/models';
 import {cursor} from '@airtable/blocks';
 import React, { useEffect, useState } from 'react';
@@ -117,8 +117,16 @@ function AirNearTable() {
         console.log(data, "data")
         if(data.length) return <div>
             <ChoiceToken choice={{"color":"blue", "name": "Account ID"}} style={{ marginTop: "1rem"}} />
-            <p style={{ marginTop: 0}}>{data[0].account_id}</p>
-
+            <br />
+            <Link
+                href={`https://explorer.mainnet.near.org/accounts/${data[0].account_id}`}
+                target="_blank"
+                style={{ marginTop: 0, marginBottom: "1rem"}}
+            >
+                {data[0].account_id}
+            </Link>
+            <br />
+            
             <ChoiceToken choice={{"color":"blue", "name": "Stake"}} />
             <p style={{ marginTop: 0}}>{data[0].stake} N</p>
 
