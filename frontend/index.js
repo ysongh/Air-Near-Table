@@ -122,6 +122,7 @@ function AirNearTable() {
                 href={`https://explorer.mainnet.near.org/accounts/${data[0].account_id}`}
                 target="_blank"
                 style={{ marginTop: 0, marginBottom: "1rem"}}
+                icon="search"
             >
                 {data[0].account_id}
             </Link>
