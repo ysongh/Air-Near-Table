@@ -131,17 +131,23 @@ function AirNearTable() {
             <ChoiceToken choice={{"color":"blue", "name": "Stake"}} />
             <p style={{ marginTop: 0}}>{data[0].stake} N</p>
 
-            <ChoiceToken choice={{"color":"blue", "name": "Expected Blocks"}} />
-            <p style={{ marginTop: 0}}>{data[0].num_expected_blocks}</p>
+            <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                    <ChoiceToken choice={{"color":"blue", "name": "Expected Blocks"}} />
+                    <p style={{ marginTop: 0}}>{data[0].num_expected_blocks}</p>
 
-            <ChoiceToken choice={{"color":"blue", "name": "Expected Chunks"}} />
-            <p style={{ marginTop: 0}}>{data[0].num_expected_chunks}</p>
+                    <ChoiceToken choice={{"color":"blue", "name": "Expected Chunks"}} />
+                    <p style={{ marginTop: 0}}>{data[0].num_expected_chunks}</p>
+                </div>
+                
+                <div>
+                    <ChoiceToken choice={{"color":"blue", "name": "Produced Blocks"}} />
+                    <p style={{ marginTop: 0}}>{data[0].num_produced_blocks}</p>
 
-            <ChoiceToken choice={{"color":"blue", "name": "Produced Blocks"}} />
-            <p style={{ marginTop: 0}}>{data[0].num_produced_blocks}</p>
-
-            <ChoiceToken choice={{"color":"blue", "name": "Produced Chunks"}} />
-            <p style={{ marginTop: 0}}>{data[0].num_produced_chunks}</p>
+                    <ChoiceToken choice={{"color":"blue", "name": "Produced Chunks"}} />
+                    <p style={{ marginTop: 0}}>{data[0].num_produced_chunks}</p>
+                </div>
+            </div>
 
             <ChoiceToken choice={{"color":"blue", "name": "Is Slashed"}} />
             <p style={{ marginTop: 0}}>{data[0].is_slashed ? "Yes" : "No"}</p>
