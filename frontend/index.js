@@ -12,6 +12,7 @@ function AirNearTable() {
     const [selectedFieldId, setSelectedFieldId] = useState(null);
     const [isShow, setIsShow] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showMesssage, setShowMessage] = useState(true);
 
     const base = useBase();
     let table = base.getTableByNameIfExists('Explorer1');
@@ -51,6 +52,7 @@ function AirNearTable() {
     let cellValue = "";
     if(selectedRecordId){
         cellValue = selectedRecord.getCellValueAsString("Account ID");
+        if(showMesssage) setShowMessage(false);
         console.log(cellValue);
     }
 
@@ -114,7 +116,7 @@ function AirNearTable() {
 
     function getSelectedValidator() {
         const data = validators.filter(v => v.account_id === cellValue);
-        console.log(data, "data")
+        console.log(data, "data");
         if(data.length) return <div>
             <ChoiceToken choice={{"color":"blue", "name": "Account ID"}} style={{ marginTop: "1rem"}} />
             <br />
@@ -170,9 +172,9 @@ function AirNearTable() {
             <p style={{ fontWeight: 600, marginTop: '0', marginBottom: '0'}}>
                 Total Stake: {totalStake / 10 ** 18} Nears
             </p>
-            <Text style={{ marginBottom: '0', marginTop: '.7rem'}} textColor="light">
+            {showMesssage && <Text style={{ marginBottom: '0', marginTop: '2.5rem'}} textColor="light">
                 Select a record to see more detail of a Validator
-            </Text>
+            </Text>}
             <center>
                 {loading && <Loader scale={1} />}
             </center>
